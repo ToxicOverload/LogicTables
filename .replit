@@ -1,0 +1,2 @@
+language = "nodejs"
+run = "npm start -- -f ./arguments/testarg.arg -o ./arguments/testarg.tex"

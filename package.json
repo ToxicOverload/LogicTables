@@ -4,6 +4,7 @@
   "description": "Script to generate LaTeX truth tables for parsed arguments",
   "main": "main.js",
   "scripts": {
+    "start": "node .",
     "test": "node tests.js"
   },
   "repository": {
