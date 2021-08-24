@@ -1,0 +1,22 @@
+{
+  "name": "logictables",
+  "version": "1.0.0",
+  "description": "Script to generate LaTeX truth tables for parsed arguments",
+  "main": "main.js",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToxicOverload/LogicTables.git"
+  },
+  "author": "Jason Kolbly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToxicOverload/LogicTables/issues"
+  },
+  "homepage": "https://github.com/ToxicOverload/LogicTables#readme",
+  "dependencies": {
+    "yargs": "^17.1.1"
+  }
+}
