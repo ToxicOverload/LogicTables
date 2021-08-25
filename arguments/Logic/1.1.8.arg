@@ -1,0 +1,8 @@
+:A: You're ambitious.
+:G: You achieve all your goals.
+:M: Life has meaning.
+
+A>!G
+M>A
+---
+G>!M

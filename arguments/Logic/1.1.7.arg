@@ -1,0 +1,7 @@
+:C: Congress will agree to the cut.
+:P: The president announces his support first.
+
+C>P
+!P
+---
+!C

@@ -1,0 +1,8 @@
+:M: Mittens is meowing.
+:H: Mittens is hungry.
+:E: The end of the Earth is at hand.
+
+M=H
+M&!H
+---
+E

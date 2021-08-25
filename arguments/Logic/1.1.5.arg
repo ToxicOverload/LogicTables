@@ -1,0 +1,7 @@
+:R: I'm right.
+:F: I'm a fool.
+
+R>F
+F>!R
+---
+!R

@@ -1,0 +1,8 @@
+:A: Adams wins the election.
+:B: Brown retires to a private life.
+:D: Brown dies before the election.
+
+A>R
+D>A
+---
+D>R
