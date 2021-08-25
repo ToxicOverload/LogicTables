@@ -1,5 +1,14 @@
 const TAB = "    ";
 
+/**
+ * @param {import("./argument").Argument} argument 
+ */
+function explain_truthiness(argument, row, exp) {
+  if (exp.type == "atom") {
+    return exp.atom + ;
+  }
+}
+
 function translate_expression(exp, nested=false) {
   if (exp.type == "atom") {
     return exp.atom;
@@ -122,18 +131,17 @@ function invalidity_proof(argument) {
 
   let row = argument.table[argument.first_counterexample()];
   let conditions = row.map((e, i) => {
-    let condstr = "";
     if (i < argument.atoms.length) {
-      condstr += argument.atoms[i];
+      return argument.atoms[i] + (e ? " is true" : " is false");
     } else if (i < argument.atoms.length + argument.premises.length) {
-      condstr += translate_expression(argument.premises[i - argument.atoms.length]);
+      return explain_truthiness(argument, row, argument.premises[i - argument.atoms.length]);
     } else {
-      condstr += translate_expression(argument.conclusions[i - argument.atoms.length - argument.premises.length]);
+      return explain_truthiness(argument, row, argument.conclusions[i - argument.atoms.length - argument.premises.length]);
     }
-    condstr += " " + e ? " is true" : " is false";
-    return condstr;
   });
-  str += "Consider the case where " + english_join(conditions);
+  str += "Consider the case where " + english_join(conditions.slice(0, argument.atoms.length)) + ". ";
+
+  str += "In this case, " + english_join(conditions.slice(argument.atoms.length)) + ". Thus, all the premises are true but the conclusion is false. This is a counterexample, so the argument is invalid.";
 
   return str;
 }

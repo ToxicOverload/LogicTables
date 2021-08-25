@@ -1,7 +1,7 @@
-:R: Einstein's theory of relativity is correct.
-:B: Light bends in the vicinity of the sun.
+:D: The patient will die.
+:O: We will operate.
 
-R>B
-B
+!D>O
+O
 ---
-R
+!D

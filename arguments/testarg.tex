@@ -1,29 +1,29 @@
 \section{}
 \centering
 \begin{tabular}{r l}
-    R & Einstein's theory of relativity is correct. \\
-    B & Light bends in the vicinity of the sun.
+    D & The patient will die. \\
+    O & We will operate.
 \end{tabular}
 \begin{tabular}{l}
-    R$\rightarrow$ B\\
-    B\\
+    $\lnot$ D$\rightarrow$ O\\
+    O\\
     \hline
-    R
+    $\lnot$ D
 \end{tabular}
 
 \begin{tabular}{c|c||c|c||c}
-    R & B & R$\rightarrow$ B & B & R \\
+    D & O & $\lnot$ D$\rightarrow$ O & O & $\lnot$ D \\
     \hline
-    T & T &   &   & T \\
-    T & F &   &   & T \\
-    F & T & T & T & F \\
+    T & T & T & T & F \\
+    T & F &   &   &   \\
+    F & T &   &   &   \\
     F & F &   &   &  
 \end{tabular}
 
 \justifying
-\noindent This argument is invalid because case 3 is a counterexample.
+\noindent This argument is invalid because case 1 is a counterexample.
 
 \noindent This argument is not sound because it's invalid.
 
 \subsection*{Proof of Invalidity}
-Consider the case where R is true, B is true, R$\rightarrow$ B is true, B is true, and R is true
+Consider the case where D  is true and O  is true. In this case, $\lnot$ D$\rightarrow$ O  is true, O  is true, and $\lnot$ D  is false. Thus, all the premises are true but the conclusion is false. This is a counterexample, so the argument is invalid.
