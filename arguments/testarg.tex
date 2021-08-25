@@ -1,20 +1,29 @@
+\section{}
+\centering
 \begin{tabular}{r l}
-    A & You are ambitious. \\
-    G & You achieve all your goals. \\
-    M & Life has meaning.
+    R & Einstein's theory of relativity is correct. \\
+    B & Light bends in the vicinity of the sun.
 \end{tabular}
-
-\begin{tabular}{c|c|c||c|c||c}
-    A & G & M & A$\rightarrow$ $\lnot$ G & M$\rightarrow$ A & G$\rightarrow$ $\lnot$ M \\
+\begin{tabular}{l}
+    R$\rightarrow$ B\\
+    B\\
     \hline
-    T & T & T & F &   & F \\
-    T & T & F &   &   & T \\
-    T & F & T &   &   & T \\
-    T & F & F &   &   & T \\
-    F & T & T & T & F & F \\
-    F & T & F &   &   & T \\
-    F & F & T &   &   & T \\
-    F & F & F &   &   & T
+    R
 \end{tabular}
 
-\noindent This argument is valid because there are no counterexamples.
+\begin{tabular}{c|c||c|c||c}
+    R & B & R$\rightarrow$ B & B & R \\
+    \hline
+    T & T &   &   & T \\
+    T & F &   &   & T \\
+    F & T & T & T & F \\
+    F & F &   &   &  
+\end{tabular}
+
+\justifying
+\noindent This argument is invalid because case 3 is a counterexample.
+
+\noindent This argument is not sound because it's invalid.
+
+\subsection*{Proof of Invalidity}
+Consider the case where R is true, B is true, R$\rightarrow$ B is true, B is true, and R is true

@@ -114,6 +114,23 @@ class Argument {
     return -1;
   }
 
+  can_be_sound(checkvalidity=false) {
+    if (checkvalidity && !this.is_valid()) return false;
+
+    for (let r = 1; r < this.table.length; r++) {
+      let rowtrue = true;
+      for (let c = this.atoms.length; c < this.atoms.length + this.premises.length; c++) {
+        if (!this.table[r][c]) {
+          rowtrue = false;
+        }
+      }
+
+      if (rowtrue) return true;
+    }
+
+    return false;
+  }
+
   latex_string(culled=true) {
     return latex.full(this, culled);
   }

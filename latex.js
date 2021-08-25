@@ -78,13 +78,93 @@ function validity_statement(argument) {
 }
 
 /**
+ * @param {import("./argument").Argument} argument
+ */
+function soundness_statement(argument) {
+  if (argument.is_valid()) {
+    if (argument.can_be_sound()) {
+      return "This argument may be sound based on its truth table, real-world context is needed to determine soundness.";
+    } else {
+      return "This argument is not sound despite being valid, because there is no case where the premises are all true.";
+    }
+  } else {
+    return "This argument is not sound because it's invalid.";
+  }
+}
+
+/**
+ * @param {import("./argument").Argument} argument
+ */
+function standard_form(argument) {
+  let str = "\\begin{tabular}{l}\n";
+
+  for (let line of argument.premises) {
+    str += "    " + translate_expression(line) + "\\\\\n";
+  }
+  str += "    \\hline\n";
+
+  let linestrs = [];
+  for (let line of argument.conclusions) {
+    linestrs.push("    " + translate_expression(line));
+  }
+  str += linestrs.join("\\\\\n");
+
+  str += "\n\\end{tabular}";
+
+  return str;
+}
+
+/**
+ * @param {import("./argument").Argument} argument
+ */
+function invalidity_proof(argument) {
+  let str = "\\subsection*{Proof of Invalidity}\n";
+
+  let row = argument.table[argument.first_counterexample()];
+  let conditions = row.map((e, i) => {
+    let condstr = "";
+    if (i < argument.atoms.length) {
+      condstr += argument.atoms[i];
+    } else if (i < argument.atoms.length + argument.premises.length) {
+      condstr += translate_expression(argument.premises[i - argument.atoms.length]);
+    } else {
+      condstr += translate_expression(argument.conclusions[i - argument.atoms.length - argument.premises.length]);
+    }
+    condstr += " " + e ? " is true" : " is false";
+    return condstr;
+  });
+  str += "Consider the case where " + english_join(conditions);
+
+  return str;
+}
+
+function english_join(strings, conjunction="and") {
+  switch (strings.length) {
+    case 0:
+      return "";
+    case 1:
+      return strings[0];
+    case 2:
+      return `${strings[0]} ${conjunction} ${strings[1]}`;
+    default:
+      return strings.slice(0, -1).join(", ") + ", " + conjunction + " " + strings[strings.length - 1];
+  }
+}
+
+/**
  * @param {import("./argument").Argument} argument 
  */
 function full(argument, culled=true) {
-  let str = "";
-  if (Object.keys(argument.atomdefs).length > 0) str += atom_defs(argument.atomdefs) + "\n";
+  let str = "\\section{}\n\\centering\n";
+  if (Object.keys(argument.atomdefs).length > 0) str += atom_defs(argument.atomdefs);
+  str += standard_form(argument) + "\n\n";
   str += table_string(argument, culled ? argument.culled_table() : argument.table);
-  str += "\n\\noindent " + validity_statement(argument);
+  str += "\n\\justifying\n\\noindent " + validity_statement(argument);
+  str += "\n\n\\noindent " + soundness_statement(argument);
+
+  if (!argument.is_valid()) {
+    str += "\n\n" + invalidity_proof(argument);
+  }
 
   return str;
 }

@@ -21,8 +21,9 @@ const argv = yargs
 
 let str = fs.readFileSync(argv.file).toString();
 let argument = new Argument(str);
-console.log(argument.latex_string());
 
 if (argv.output) {
   fs.writeFileSync(argv.output, argument.latex_string())
+} else {
+  console.log(argument.latex_string());
 }

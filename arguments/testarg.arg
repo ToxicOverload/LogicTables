@@ -1,8 +1,7 @@
-:A: You are ambitious.
-:G: You achieve all your goals.
-:M: Life has meaning.
+:R: Einstein's theory of relativity is correct.
+:B: Light bends in the vicinity of the sun.
 
-A>!G
-M>A
+R>B
+B
 ---
-G>!M
+R
