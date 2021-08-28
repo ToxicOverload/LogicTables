@@ -1,7 +1,7 @@
-:D: The patient will die.
-:O: We will operate.
+:R: I'm right.
+:F: I'm a fool.
 
-!D>O
-O
+R>F
+F>!R
 ---
-!D
+!F

@@ -3,9 +3,25 @@ const TAB = "    ";
 /**
  * @param {import("./argument").Argument} argument 
  */
-function explain_truthiness(argument, row, exp) {
+function explain_truthiness(exp) {
   if (exp.type == "atom") {
-    return exp.atom + ;
+    return exp.atom + (exp.val ? " is true" : " is false");
+  } else {
+    let culled_params = exp.params;
+    switch (exp.op.id) {
+      case "or":
+        if (params[0].val) {
+          culled_params = culled_params.slice(0, 1);
+        }
+      default:
+        break;
+    }
+    culled_params = culled_params.filter(p => p.type != "atom");
+    let params = culled_params.map(
+      p => explain_truthiness(p)
+    );
+
+    return `${translate_expression(exp)} is ${exp.val}`/*` because ${english_join(params)}`*/;
   }
 }
 
@@ -17,19 +33,19 @@ function translate_expression(exp, nested=false) {
     let ret;
     switch (exp.op.id) {
       case "not":
-        ret = "$\\lnot$ " + params[0];
+        ret = "$\\lnot$" + params[0];
         break;
       case "or":
-        ret = params[0] + "$\\lor$ " + params[1];
+        ret = params[0] + "$\\lor$" + params[1];
         break;
       case "and":
-        ret = params[0] + "$\\land$ " + params[1];
+        ret = params[0] + "$\\land$" + params[1];
         break;
       case "if":
-        ret = params[0] + "$\\rightarrow$ " + params[1];
+        ret = params[0] + "$\\rightarrow$" + params[1];
         break;
       case "iff":
-        ret = params[0] + "$\\leftrightarrow$ " + params[1];
+        ret = params[0] + "$\\leftrightarrow$" + params[1];
         break;
     }
     return nested && params.length > 1 ? "(" + ret + ")" : ret;
@@ -127,16 +143,22 @@ function standard_form(argument) {
  * @param {import("./argument").Argument} argument
  */
 function invalidity_proof(argument) {
+  let atomvals = {};
+  let row = argument.table[argument.first_counterexample()];
+  for (let i = 0; i < argument.atoms.length; i++) {
+    atomvals[argument.atoms[i]] = row[i];
+  }
+  argument.eval_state(atomvals);
+
   let str = "\\subsection*{Proof of Invalidity}\n";
 
-  let row = argument.table[argument.first_counterexample()];
   let conditions = row.map((e, i) => {
     if (i < argument.atoms.length) {
       return argument.atoms[i] + (e ? " is true" : " is false");
     } else if (i < argument.atoms.length + argument.premises.length) {
-      return explain_truthiness(argument, row, argument.premises[i - argument.atoms.length]);
+      return explain_truthiness(argument.premises[i - argument.atoms.length]);
     } else {
-      return explain_truthiness(argument, row, argument.conclusions[i - argument.atoms.length - argument.premises.length]);
+      return explain_truthiness(argument.conclusions[i - argument.atoms.length - argument.premises.length]);
     }
   });
   str += "Consider the case where " + english_join(conditions.slice(0, argument.atoms.length)) + ". ";

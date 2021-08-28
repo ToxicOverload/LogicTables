@@ -46,16 +46,18 @@ class Argument {
 
   eval_state(atomvals) {
     for (let exp of this.lines) {
-      exp.val = this.eval_exp(exp, atomvals);
+      this.eval_exp(exp, atomvals);
     }
   }
 
   eval_exp(exp, atomvals) {
     if (exp.type == "atom") {
-      return atomvals[exp.atom];
+      exp.val = atomvals[exp.atom];
     } else {
-      return exp.op.eval(exp, atomvals, (exp, atomvals) => this.eval_exp(exp, atomvals));
+      exp.val = exp.op.eval(exp, atomvals, (exp, atomvals) => this.eval_exp(exp, atomvals));
     }
+
+    return exp.val;
   }
 
   culled_table() {

@@ -1,29 +1,29 @@
 \section{}
 \centering
 \begin{tabular}{r l}
-    D & The patient will die. \\
-    O & We will operate.
+    R & I'm right. \\
+    F & I'm a fool.
 \end{tabular}
 \begin{tabular}{l}
-    $\lnot$ D$\rightarrow$ O\\
-    O\\
+    R$\rightarrow$ F\\
+    F$\rightarrow$ $\lnot$ R\\
     \hline
-    $\lnot$ D
+    $\lnot$ F
 \end{tabular}
 
 \begin{tabular}{c|c||c|c||c}
-    D & O & $\lnot$ D$\rightarrow$ O & O & $\lnot$ D \\
+    R & F & R$\rightarrow$ F & F$\rightarrow$ $\lnot$ R & $\lnot$ F \\
     \hline
-    T & T & T & T & F \\
-    T & F &   &   &   \\
-    F & T &   &   &   \\
+    T & T & T & F & F \\
+    T & F &   &   & T \\
+    F & T & T & T & F \\
     F & F &   &   &  
 \end{tabular}
 
 \justifying
-\noindent This argument is invalid because case 1 is a counterexample.
+\noindent This argument is invalid because case 3 is a counterexample.
 
 \noindent This argument is not sound because it's invalid.
 
 \subsection*{Proof of Invalidity}
-Consider the case where D  is true and O  is true. In this case, $\lnot$ D$\rightarrow$ O  is true, O  is true, and $\lnot$ D  is false. Thus, all the premises are true but the conclusion is false. This is a counterexample, so the argument is invalid.
+Consider the case where R is false and F is true. In this case, R$\rightarrow$ F is true, F$\rightarrow$ $\lnot$ R is true, and $\lnot$ F is false. Thus, all the premises are true but the conclusion is false. This is a counterexample, so the argument is invalid.
